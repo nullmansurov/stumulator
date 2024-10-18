@@ -24,7 +24,7 @@
       "package.json",
       "index.html",
       "notification.js",
-      "assets/ficon.png",
+      "assets/ficon.ico",
       "create_stimulation",
       "01.wav",
       "02.mp3",
@@ -35,19 +35,7 @@
       "target": [
         "nsis"
       ],
-      "icon": "assets/iconns.ico"
-    },
-    "mac": {
-      "target": "dmg",
-      "icon": "assets/icon.icns"
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ],
-      "icon": "assets/ficon.png",
-       "maintainer": "Scyload <arstailev@gmail.com>"
+      "icon": "assets/ficon.ico"
     },
     "nsis": {
       "oneClick": false,
