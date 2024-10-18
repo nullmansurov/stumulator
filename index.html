@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Стимуляторы</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.png" type="image/png">
+</head>
+<body>
+
+<h1>Стимуляторы</h1>
+<button id="create-stimulator">Создать стимулятор</button>
+<button id="clear-localstorage">Очистить</button>
+
+
+<div id="notification-list"></div>
+
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="modal-title">Создание стимулятора</h2>
+        <label for="stimulator-name">Название стимулятора:</label>
+        <input type="text" id="stimulator-name" required>
+        
+        <div>
+            <h3>Условия запуска:</h3>
+            <label><input type="checkbox" id="activate-button"> По кнопке</label>
+            <label><input type="checkbox" id="activate-timer"> Таймер</label>
+        </div>
+
+        <div id="button-selection" class="hidden">
+            <h3>Выберите кнопки для активации:</h3>
+            <div id="available-buttons"></div>
+        </div>
+
+        <div id="timer-input" class="hidden">
+            <h3>Введите время таймера (в секундах):</h3>
+            <input type="number" id="timer-value" placeholder="Введите время" min="1">
+        </div>
+
+        <div>
+            <h3>Кнопки:</h3>
+            <div id="button-list"></div>
+            <button id="add-button">Добавить кнопку</button>
+        </div>
+        
+        <button id="save-stimulator">Сохранить стимулятор</button>
+    </div>
+</div>
+
+<script src="create_stimulation.js"></script>
+<script src="notification.js"></script>
+<script>
+    // Добавьте этот код в ваш файл create_stimulation.js или в отдельный файл JavaScript
+
+    document.getElementById('clear-localstorage').addEventListener('click', function() {
+        localStorage.clear(); //
+        alert('Список очищен!'); 
+    });
+
+</script>
+</body>
+</html>

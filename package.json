@@ -1,0 +1,58 @@
+{
+  "name": "creative-space",
+  "version": "1.0.0",
+  "description": "A creative space application for generating and managing ideas.",
+  "author": {
+  "name": "Scyload",
+  "email": "arstailev@gmail.com"
+  },
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^32.2.0",
+    "electron-builder": "^25.1.7"
+  },
+  "build": {
+    "appId": "scyload.creativespace",
+    "productName": "Creative Space",
+    "files": [
+      "main.js",
+      "package.json",
+      "index.html",
+      "notification.js",
+      "assets/ficon.png",
+      "create_stimulation",
+      "01.wav",
+      "02.mp3",
+      "favicon.png",
+      "styles.css"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "icon": "assets/iconns.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "icon": "assets/ficon.png",
+       "maintainer": "Scyload <arstailev@gmail.com>"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

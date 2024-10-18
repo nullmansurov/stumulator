@@ -1,0 +1,177 @@
+/* Общий стиль для темной темы */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* Темный фон */
+    color: #e0e0e0; /* Светлый текст */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Контент не центрируется по вертикали */
+    min-height: 100vh;
+}
+
+h1 {
+    color: #e0e0e0;
+    font-size: 2.5rem;
+    margin-top: 20px;
+}
+
+#create-stimulator {
+    background-color: #4a90e2; /* Холодный синий цвет */
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px; /* Увеличенное заполнение */
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 50px; /* Круглая форма кнопки */
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+#create-stimulator:hover {
+    background-color: #357ab8; /* Темнее при наведении */
+}
+
+/* Список стимуляторов */
+#notification-list {
+    margin-top: 20px;
+    width: 80%;
+}
+
+.stimulator {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1e1e1e; /* Темный фон для стимуляторов */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 20px; /* Круглые углы */
+    border: 1px solid #4a90e2; /* Граница в цвет кнопки */
+}
+
+.stimulator span {
+    font-size: 1.2rem;
+}
+
+.stimulator button {
+    margin-left: 10px;
+    background-color: #4a90e2; /* Холодный синий цвет */
+    color: #ffffff;
+    border: none;
+    padding: 8px 16px; /* Уменьшенное заполнение */
+    border-radius: 30px; /* Круглая форма кнопки */
+    transition: background-color 0.3s ease;
+}
+
+.stimulator button:hover {
+    background-color: #357ab8; /* Темнее при наведении */
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Затемненный фон */
+    justify-content: center;
+    align-items: center;
+    padding: 20px; /* Добавляем отступы по краям */
+}
+
+.modal-content {
+    background-color: #1e1e1e; /* Темный фон окна */
+    color: #ffffff; /* Белый текст */
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px; /* Круглые углы */
+    max-width: 600px; /* Максимальная ширина */
+    width: 100%;
+    max-height: 80vh; /* Ограничиваем высоту модального окна */
+    overflow-y: auto; /* Прокрутка по вертикали, если контент превышает окно */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.close {
+    color: #ffffff;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #4a90e2; /* Цвет при наведении */
+}
+
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 12px; /* Увеличенное заполнение */
+    margin: 10px 0;
+    background-color: #2a2a2a; /* Темный фон для полей ввода */
+    color: #ffffff; /* Белый текст в полях ввода */
+    border: 1px solid #4a90e2; /* Границы в цвет кнопки */
+    border-radius: 20px; /* Круглая форма полей ввода */
+    box-sizing: border-box;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+button {
+    background-color: #4a90e2; /* Холодный синий цвет */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 30px; /* Круглая форма кнопки */
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #357ab8; /* Темнее при наведении */
+}
+
+.hidden {
+    display: none;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 600px) {
+    .modal-content {
+        width: 90%; /* Меньшая ширина для мобильных */
+        max-height: 90vh; /* Немного увеличиваем высоту */
+        padding: 15px; /* Слегка уменьшаем отступы */
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #create-stimulator {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+.stimulator-title {
+    font-size: 1.2rem; /* Основной текст */
+    display: block;
+    margin-bottom: 5px; /* Отступ снизу от названия */
+}
+
+.stimulator-activation {
+    font-size: 0.9rem; /* Уменьшенный текст для способов активации */
+    color: #aaa; /* Немного приглушенный цвет */
+    margin-bottom: 10px; /* Отступ перед кнопками */
+}
