@@ -5,12 +5,13 @@ let mainWindow;
 
 function createWindow() {
     mainWindow = new BrowserWindow({
-        width: 1100,
-        height: 900,
+        width: 800,
+        height: 600,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'), // Убедитесь, что этот файл существует
-            contextIsolation: true, // Включите контекстное изоляцию для безопасности
+            contextIsolation: true, // Включите контекстную изоляцию для безопасности
             enableRemoteModule: false, // Отключите удалённый модуль
+            backgroundThrottling: false, // Отключаем троттлинг в фоне, чтобы скрипты продолжали работать
         },
     });
 
