@@ -1,5 +1,5 @@
 {
-  "name": "creative-space",
+  "name": "stimul-app",
   "version": "1.0.0",
   "description": "A creative space application for generating and managing ideas.",
   "author": {
@@ -17,8 +17,8 @@
     "electron-builder": "^25.1.7"
   },
   "build": {
-    "appId": "scyload.creativespace",
-    "productName": "Creative Space",
+    "appId": "scyload.stimulator",
+    "productName": "Stimulator",
     "files": [
       "main.js",
       "package.json",
