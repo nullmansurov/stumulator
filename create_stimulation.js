@@ -5,7 +5,6 @@ const saveStimulatorBtn = document.getElementById('save-stimulator');
 const buttonList = document.getElementById('button-list');
 const notificationList = document.getElementById('notification-list');
 const addButton = document.getElementById('add-button');
-
 const activateButton = document.getElementById('activate-button');
 const activateTimer = document.getElementById('activate-timer');
 const buttonSelection = document.getElementById('button-selection');
@@ -29,7 +28,7 @@ closeModal.onclick = function() {
 }
 
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
         modal.style.display = "none";
         clearModal();
     }
@@ -46,10 +45,7 @@ addButton.onclick = function() {
         buttonList.appendChild(newButton);
         
         // Сохраняем кнопку в массив buttons
-        buttons.push({
-            id: buttonId,
-            name: '' // имя кнопки будет заполнено позже
-        });
+        buttons.push({ id: buttonId, name: '' });
         
         buttonCount++;
     } else {
@@ -92,7 +88,7 @@ saveStimulatorBtn.onclick = function() {
     const activationTime = activateTimer.checked ? parseInt(timerValue.value) : null;
 
     const stimulator = {
-        id: stimulators.length,
+        id: currentStimulatorIndex !== null ? stimulators[currentStimulatorIndex].id : stimulators.length, // Сохраняем ID
         name: stimulatorName,
         buttonIds: buttonsForStimulator, // Здесь сохраняем ID кнопок
         activationButtons: activationButtons, // Сохраняем ID активирующих кнопок
@@ -100,12 +96,12 @@ saveStimulatorBtn.onclick = function() {
     };
 
     if (currentStimulatorIndex !== null) {
-        // обновление существующего стимулятора
-        stimulators[currentStimulatorIndex] = stimulator; 
-    } else {
-        // добавление нового стимулятора
-        stimulators.push(stimulator);
+        // Удаляем старый стимулятор
+        stimulators.splice(currentStimulatorIndex, 1);
     }
+
+    // Добавляем новый стимулятор с тем же ID
+    stimulators.splice(currentStimulatorIndex !== null ? currentStimulatorIndex : stimulators.length, 0, stimulator); 
 
     localStorage.setItem('stimulators', JSON.stringify(stimulators));
     localStorage.setItem('buttons', JSON.stringify(buttons));
@@ -113,6 +109,7 @@ saveStimulatorBtn.onclick = function() {
     modal.style.display = "none";
     clearModal();
 }
+
 
 function removeButton(button) {
     button.parentElement.remove();
@@ -167,13 +164,13 @@ function editStimulator(index) {
         timerInput.classList.add('hidden');
     }
 
-    currentStimulatorIndex = index; // сохраняем текущий индекс для редактирования
+    currentStimulatorIndex = index;
     document.getElementById('modal-title').textContent = "Редактирование стимулятора";
-    modal.style.display = "block"; // открываем модальное окно
+    modal.style.display = "block"; 
 }
 
 function deleteStimulator(index) {
-    stimulators.splice(index, 1); // удаление стимулятора
+    stimulators.splice(index, 1);
     localStorage.setItem('stimulators', JSON.stringify(stimulators));
     displayStimulators();
 }
@@ -182,7 +179,7 @@ function displayAvailableButtons(includeChecked = false, checkedButtonIds = []) 
     availableButtons.innerHTML = '';
     buttons.forEach(button => {
         const isButtonInCurrentStimulator = currentStimulatorIndex !== null && stimulators[currentStimulatorIndex].activationButtons.includes(button.id);
-        if (!isButtonInCurrentStimulator) { // исключаем кнопки этого стимулятора
+        if (!isButtonInCurrentStimulator) {
             const buttonDiv = document.createElement('div');
             buttonDiv.innerHTML = `
                 <label>
@@ -195,33 +192,29 @@ function displayAvailableButtons(includeChecked = false, checkedButtonIds = []) 
     });
 }
 
-displayStimulators(); // отобразить стимуляторы при загрузке
+displayStimulators();
 
 function displayStimulators() {
     const stimulatorList = document.getElementById('notification-list');
-    stimulatorList.innerHTML = ''; // Очищаем список перед обновлением
+    stimulatorList.innerHTML = '';
 
-    // Проверяем, есть ли стимуляторы
     if (stimulators.length === 0) {
         stimulatorList.innerHTML = '<p>Нет доступных стимуляторов.</p>';
-        return; // Выходим, если нет стимуляторов
+        return; 
     }
 
     stimulators.forEach((stimulator, index) => {
         const stimulatorDiv = document.createElement('div');
         stimulatorDiv.classList.add('stimulator');
 
-        // Создаем текст для способов активации
         let activationInfo = '<strong>Способы активации:</strong><br>';
         let canStart = false;
 
-        // Проверяем наличие таймера
         if (stimulator.activationTime) {
             activationInfo += `Таймер: ${stimulator.activationTime} сек.<br>`;
-            canStart = stimulator.activationButtons.length === 0; // Можно запускать, если только таймер
+            canStart = stimulator.activationButtons.length === 0; 
         }
 
-        // Проверяем наличие активирующих кнопок
         if (stimulator.activationButtons && stimulator.activationButtons.length > 0) {
             const buttonIds = stimulator.activationButtons.join(', ');
             activationInfo += `Кнопки: ${buttonIds}<br>`;

@@ -45,16 +45,14 @@ function playNotificationSound() {
 function openNotificationWindow(stimulator) {
     const notificationWindow = window.open('', '_blank', 'width=400,height=400');
 
-    // Получаем кнопки стимулятора по ID
-    console.log('Активирующие кнопки:', stimulator.buttonIds); // Для отладки
+    console.log('Активирующие кнопки:', stimulator.buttonIds); // Лог для проверки кнопок
 
     const stimulatorButtons = stimulator.buttonIds.map(buttonId => {
-        const buttonIdNumber = Number(buttonId); // Преобразуем ID в число
-        const button = buttons.find(b => b.id === buttonIdNumber); // Сравниваем как число
+        const buttonIdNumber = Number(buttonId);
+        const button = buttons.find(b => b.id === buttonIdNumber);
         return button ? button.name : `Кнопка с ID ${buttonId} не найдена`;
     });
 
-    // Добавляем данные стимулятора и кнопки в новое окно
     notificationWindow.document.write(`
         <html>
         <head>
@@ -88,15 +86,12 @@ function openNotificationWindow(stimulator) {
             </div>
             <script>
                 function handleButtonClick(buttonId) {
-                    // Отправляем ID кнопки в родительское окно
-                    console.log('Нажата кнопка с ID:', buttonId); // Для отладки
-                    
-                    // Проверка на существование родительского окна
+                    console.log('Нажата кнопка с ID:', buttonId);
+
                     if (window.opener) {
                         window.opener.handleButtonPress(buttonId);
                     }
 
-                    // Закрываем дочернее окно
                     window.close(); 
                 }
             </script>
@@ -105,13 +100,16 @@ function openNotificationWindow(stimulator) {
     `);
 }
 
+
 function handleButtonPress(buttonId) {
-    // Логируем полученный ID в консоль
     console.log('Получен ID кнопки от дочернего окна:', buttonId); // Для отладки
+
+    // Преобразуем ID в строку для сравнения
+    const buttonIdString = String(buttonId);
 
     // Ищем стимуляторы, которые активируются данной кнопкой
     const matchingStimulators = stimulators.filter(stimulator =>
-        stimulator.activationButtons.includes(String(buttonId)) // Преобразуем ID в строку для сравнения
+        stimulator.activationButtons.includes(buttonIdString) // Преобразуем ID в строку для сравнения
     );
 
     if (matchingStimulators.length > 0) {
@@ -123,3 +121,4 @@ function handleButtonPress(buttonId) {
         console.error(`Стимулятор для кнопки с ID ${buttonId} не найден. Доступные стимуляторы:`, stimulators);
     }
 }
+
