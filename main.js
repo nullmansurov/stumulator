@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const path = require('path');
 
 let mainWindow;
@@ -8,30 +8,32 @@ function createWindow() {
         width: 1200,
         height: 900,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'), // Убедитесь, что этот файл существует
-            contextIsolation: true, // Включите контекстную изоляцию для безопасности
-            enableRemoteModule: false, // Отключите удалённый модуль
-            backgroundThrottling: false, // Отключаем троттлинг в фоне, чтобы скрипты продолжали работать
+            preload: path.join(__dirname, 'preload.js'),
+            contextIsolation: true,
+            enableRemoteModule: false,
+            backgroundThrottling: false, // Скрипты продолжают работать при сворачивании
         },
     });
 
-    mainWindow.loadFile('index.html'); // Замените 'index.html' на путь к вашему HTML файлу
-
-    // Убираем стандартное меню
+    mainWindow.loadFile('index.html');
     Menu.setApplicationMenu(null);
 }
 
-// Создаём окно после загрузки приложения
+ipcMain.on('push-user', () => {
+    if (mainWindow) {
+        mainWindow.show();  // Показать окно, если оно свернуто
+        mainWindow.focus(); // Вернуть фокус на окно
+    }
+});
+
 app.whenReady().then(createWindow);
 
-// Закрываем приложение, если все окна закрыты (для macOS)
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
         app.quit();
     }
 });
 
-// Создаём окно заново, если приложение активируется (для macOS)
 app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) {
         createWindow();
