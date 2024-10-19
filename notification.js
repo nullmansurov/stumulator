@@ -18,6 +18,7 @@ function startNotification(stimulatorIndex) {
                 clearInterval(countdown);
                 // Таймер завершен, воспроизводим звук и открываем новое окно
                 playNotificationSound();
+                push_user()
                 openNotificationWindow(stimulator);
             }
         }, 1000);
@@ -30,6 +31,10 @@ function startNotification(stimulatorIndex) {
         openNotificationWindow(stimulator);
     }
 }
+
+function push_user() {
+            window.electronAPI.pushUser(); // Отправка сообщения в главный процесс
+        }
 
 function playNotificationSound() {
     // Генерируем случайное число для выбора звука
@@ -44,6 +49,7 @@ function playNotificationSound() {
 
 function openNotificationWindow(stimulator) {
     const notificationWindow = window.open('', '_blank', 'width=400,height=400');
+    notificationWindow.focus(); // Попробуйте сделать окно активным
 
     console.log('Активирующие кнопки:', stimulator.buttonIds); // Лог для проверки кнопок
 
@@ -99,6 +105,7 @@ function openNotificationWindow(stimulator) {
         </html>
     `);
 }
+
 
 
 function handleButtonPress(buttonId) {
