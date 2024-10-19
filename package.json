@@ -29,6 +29,7 @@
       "01.wav",
       "02.mp3",
       "favicon.png",
+      "preload.js",
       "styles.css"
     ],
     "win": {
